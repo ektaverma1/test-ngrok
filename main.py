@@ -1,6 +1,8 @@
 def calculate_total(items):
     """Calculate total price of items with discount"""
     total = 0
+    # Added a comment to trigger change
+    # Iterate through items and calculate total
     for item in items:
         total += item['price']
         if 'discount' in item:
@@ -10,22 +12,11 @@ def calculate_total(items):
 class ShoppingCart:
     def __init__(self):
         self.items = []
-        self.total = 0
+        self.total = 0  # Added comment here
     
     def add_item(self, item):
+        # Added validation
+        if not isinstance(item, dict):
+            raise ValueError("Item must be a dictionary")
         self.items.append(item)
         self.update_total()
-    
-    def update_total(self):
-        """Update cart total"""
-        self.total = calculate_total(self.items)
-        
-    async def checkout(self):
-        """Process checkout asynchronously"""
-        try:
-            result = await self.process_payment()
-            self.items = []
-            self.total = 0
-            return result
-        except PaymentError:
-            return False
